@@ -3,8 +3,8 @@ const expect = require('chai').expect;
 const specs = [
   {feature : "test-1", scenario: "test-1/one", expected: {tree: {branchOne: {name : "one", values: [3,4, 1]}}} ,actual: {tree: {branchOne: {name : "one", values: [3,3, 1]}}}},
   {feature : "test-1", scenario: "test-1/two", expected: {tree: {branchOne: {name : "one", values: [3,4, 1]}}} ,actual: {tree: {branchOne: {name : "one", values: [3,4, 1]}}}},
-  {feature : "test-2", scenario: "test-2/one", expected: false,actual: false},
-  {feature : "test-3", scenario: "test-3/one", expected: false ,actual: false},
+  {feature : "test-2", scenario: "test-2/one", expected: "hello" ,actual: "hi"},
+  {feature : "test-3", scenario: "test-3/one", expected: "hello" ,actual: "hello"},
 ]
 
 const runSpec = async (spec) => {
