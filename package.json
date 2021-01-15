@@ -16,5 +16,7 @@
     "url": "https://github.com/nishants/ispec/issues"
   },
   "homepage": "https://github.com/nishants/ispec#readme",
-  "dependencies": {}
+  "dependencies": {
+    "chai": "^4.2.0"
+  }
 }
