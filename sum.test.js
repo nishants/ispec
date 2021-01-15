@@ -6,14 +6,36 @@ const specs = [
   {group : "test-3", name: "test-3/one", value: false},
 ]
 
+const runSpec = async (spec) => {
+  expect(spec.value).toBe(true);
+};
+
 const runTests = async () => {
+  let totalTests = 0;
+  const failures = [];
+  const finished = async (spec) => {
+    totalTests++;
+    if(totalTests === specs.length){
+      console.log("Finished.....")
+      console.log(`Result : Passed ${specs.length - failures.length}/${specs.length}`)
+      if(failures.length){
+        console.log(failures);
+        console.error(`Failed : ${failures.length}`)
+      }
+    }
+  };
+
   specs.forEach(spec => {
     test(spec.name, async () => {
-      expect(spec.value).toBe(true);
+      try{
+        await runSpec(spec);
+        finished(spec);
+      }catch(e){
+        failures.push({spec, result: e})
+        finished(spec);
+      }
     });
   });
-
-
 }
 
 runTests();
