@@ -1,41 +1,41 @@
+const expect = require('chai').expect;
 
 const specs = [
-  {group : "test-1", name: "test-1/one", value: true},
-  {group : "test-1", name: "test-1/two", value: false},
-  {group : "test-2", name: "test-2/one", value: true},
-  {group : "test-3", name: "test-3/one", value: false},
+  {feature : "test-1", scenario: "test-1/one", value: true},
+  {feature : "test-1", scenario: "test-1/two", value: true},
+  {feature : "test-2", scenario: "test-2/one", value: false},
+  {feature : "test-3", scenario: "test-3/one", value: true},
 ]
 
 const runSpec = async (spec) => {
-  expect(spec.value).toBe(true);
+  expect(spec.value).to.equal(true);
 };
 
 const runTests = async () => {
   let totalTests = 0;
   const failures = [];
-  const finished = async (spec) => {
+  const finished = async (spec, error) => {
     totalTests++;
     if(totalTests === specs.length){
       console.log("Finished.....")
       console.log(`Result : Passed ${specs.length - failures.length}/${specs.length}`)
       if(failures.length){
         console.log(failures);
-        console.error(`Failed : ${failures.length}`)
+        console.error(`Failed : ${failures.length}/${specs.length}`)
       }
     }
   };
 
-  specs.forEach(spec => {
-    test(spec.name, async () => {
-      try{
-        await runSpec(spec);
-        finished(spec);
-      }catch(e){
-        failures.push({spec, result: e})
-        finished(spec);
-      }
-    });
-  });
+  for (const spec of specs) {
+    try{
+      await runSpec(spec);
+      finished(spec);
+    }catch(e){
+      const {expected, actual, message} = e;
+      failures.push({spec, error: {expected, actual, message}})
+      finished(spec, e);
+    }
+  }
 }
 
 runTests();
