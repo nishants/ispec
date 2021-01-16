@@ -11,6 +11,6 @@ request: {
 }
 
 response: {
-  status: 403
+  status: 403,
   body: "Expected header {Authorization: Bearer <token>}"
 }
