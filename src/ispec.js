@@ -8,6 +8,7 @@ const report = {
 module.exports = {
   addSpec: (filePath) => {
     specFiles.push(filePath);
+    report.passed.push(filePath);
   },
   addRunner : (name, runner) => {
     runners.push(name);
