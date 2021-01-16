@@ -6,7 +6,7 @@ describe("Should support variables and templates", () => {
     const {report} = await runParam(`specs=template-token.spec.yml`);
     const actual = readResult(report);
     const actualServer = report.server;
-    const expected = {passed: ["Variables and hooks"]};
+    const expected = {passed: ["Variables and templates"]};
     expect(actual).toEqual(expected);
     expect(actualServer).toEqual("http://localhost:3123");
   });

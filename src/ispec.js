@@ -32,7 +32,7 @@ module.exports = {
   addSpec: (filePath) => {
     specFiles.push(filePath);
   },
-  addHook : async (callback) => {
+  addVariable : async (callback) => {
     await callback(runnerIspec);
   },
   start: async () => {

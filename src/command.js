@@ -25,12 +25,12 @@ const getSpecFilesWithFilter = async (args, specsPath, rootPath) => {
   return withRelativePath(allFiles);
 };
 
-const getHooks = async (args, runnerPath, rootPath) => {
-  const files = await searchFiles("**/*.hook.js", runnerPath, rootPath);
+const getVariablesProviders = async (args, runnerPath, rootPath) => {
+  const files = await searchFiles("**/*.variable.js", runnerPath, rootPath);
   const paths = files.map(file => path.resolve(path.join(runnerPath, file)));
-  const hooks = await Promise.all(paths.map(p => require(p)));
+  const variableProviders = await Promise.all(paths.map(p => require(p)));
 
-  return hooks;
+  return variableProviders;
 };
 
 const getServer = (args) => {
@@ -49,7 +49,7 @@ const readCommands = async (args) => {
     runnersPath,
     logReport : process.env.report === 'true',
     specFiles : await getSpecFilesWithFilter(args, specsPath, rootPath),
-    hooks: await getHooks(args, runnersPath, rootPath),
+    variableProviders: await getVariablesProviders(args, runnersPath, rootPath),
   };
 }
 
@@ -62,8 +62,8 @@ module.exports = {
       await ispec.addSpec(file);
     }
 
-    for(const hook of params.hooks){
-      await ispec.addHook(hook);
+    for(const provider of params.variableProviders){
+      await ispec.addVariable(provider);
     }
 
     await ispec.start();
