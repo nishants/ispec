@@ -2,6 +2,19 @@ const path = require("path");
 const ispec = require("./ispec");
 const {searchFiles} = require("./utils/file");
 
+const getSpecFilesWithFilter = async (args, specsPath) => {
+  const filter = args.find(arg => arg.startsWith("specs="))?.split("=").pop();
+  const allFiles = await Promise.all([
+    searchFiles("**/*.spec.yml", specsPath),
+    searchFiles("**/*.spec.yaml", specsPath)]).then(files => files.flat());
+
+  if(filter){
+    const patterns = filter.split(",").map(p => new RegExp(p));
+    return allFiles.filter(file => patterns.find(p => p.test(file)));
+  }
+  return allFiles
+};
+
 const readCommands = async (args) => {
   console.log(args);
   const rootPath = path.join(process.cwd(), args[0]);
@@ -12,9 +25,7 @@ const readCommands = async (args) => {
     specsPath,
     runnersPath,
     logReport : process.env.report === 'true',
-    specFiles : await Promise.all([
-      searchFiles("**/*.spec.yml", specsPath),
-      searchFiles("**/*.spec.yaml", specsPath)]).then(files => files.flat())
+    specFiles : await getSpecFilesWithFilter(args, specsPath)
   };
 }
 
