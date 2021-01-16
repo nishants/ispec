@@ -1,7 +1,7 @@
 const {exec} = require('child_process');
 
 const runCommand = (params) => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     const output = [];
     const errors = [];
     const child = exec(`report=true npm run e2e:test . ${params}`);
@@ -13,16 +13,19 @@ const runCommand = (params) => {
     }
 
     child.stderr.on('data', function(data) {
-      errors.push(data.toString());
+      console.error(data.toString())
     });
 
     child.stdout.on('data', function(data) {
-      output.push(data.toString());
+      console.log(data.toString())
     });
 
     child.on('close', (code, signal) => {
       const status = {code, signal, error: undefined};
       const result = {status, output, errors, report: readReport()};
+      if(code === 1){
+        reject(result);
+      }
       resolve(result);
     });
 
