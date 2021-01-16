@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/nishants/ispec#readme",
   "dependencies": {
+    "glob": "^7.1.6",
     "jest": "^26.6.3"
   }
 }
