@@ -8,11 +8,17 @@ const report = {
   passed: [],
 };
 
+const variables = {};
 let server;
 
 const runnerIspec = {
   getUrl : (url) => {
     return new URL(url, server).href;
+  },
+  addVariable: (vars) => {
+    Object.keys(vars).forEach(key => {
+      variables[key] = vars[key];
+    });
   }
 };
 
@@ -25,8 +31,8 @@ module.exports = {
   addSpec: (filePath) => {
     specFiles.push(filePath);
   },
-  addRunner : (name, runner) => {
-    runners.push(name);
+  addHook : async (callback) => {
+    await callback(runnerIspec);
   },
   start: async () => {
     const results = await Promise.all(specFiles.map(async spec => runner.run(spec, runnerIspec)));
