@@ -1,7 +1,7 @@
 const {exec} = require('child_process');
 
 const runCommand = (command) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     const output = [];
     const errors = [];
     const child = exec(command);
@@ -17,26 +17,14 @@ const runCommand = (command) => {
     child.on('close', (code, signal) => {
       const status = {code, signal, error: undefined};
       const result = {status, output, errors};
-
-      if(errors.length){
-        return reject(result);
-      }
-
       resolve(result);
     });
 
     child.on('error', (error) => {
       const status = {error};
-      reject({status, output, errors})
+      resolve({status, output, errors})
     });
   });
 }
 
-(async () => {
-  try{
-    const result = await runCommand('npm run e2e:tests');
-    console.log(result);
-  }catch(e){
-    console.error(e);
-  }
-})();
+module.exports = runCommand;

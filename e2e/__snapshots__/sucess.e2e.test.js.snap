@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should run a single file in a project 1`] = `
+Object {
+  "errors": Array [],
+  "output": Array [
+    "
+> ispec@0.0.1 e2e:test /Users/dawn/projects/ispec
+> npm --prefix ./example  run e2e
+
+",
+    "
+> example@1.0.0 e2e /Users/dawn/projects/ispec/example
+> ispec ./e2e
+
+",
+    "Running for dir  [
+  '/Users/dawn/.nvm/versions/node/v14.5.0/bin/node',
+  '/Users/dawn/.nvm/versions/node/v14.5.0/bin/ispec',
+  './e2e'
+]
+",
+  ],
+  "status": Object {
+    "code": 0,
+    "error": undefined,
+    "signal": null,
+  },
+}
+`;
