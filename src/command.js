@@ -1,4 +1,5 @@
 const path = require("path");
+const ispec = require("./ispec");
 const {searchFiles} = require("./utils/file");
 
 const readCommands = async (args) => {
@@ -19,6 +20,10 @@ const readCommands = async (args) => {
 
 module.exports = {
   run : async([nodePath, scriptPath, ...args]) => {
-    console.log("Running for dir ", await readCommands(args));
+    const params = await readCommands(args);
+    await ispec.addSpec(params.specFiles);
+    await ispec.start();
+    const report = await ispec.report();
+    console.log(JSON.stringify(report));
   }
 };

@@ -14,11 +14,7 @@ Object {
 > ispec ./e2e
 
 ",
-    "Running for dir  [
-  '/Users/dawn/.nvm/versions/node/v14.5.0/bin/node',
-  '/Users/dawn/.nvm/versions/node/v14.5.0/bin/ispec',
-  './e2e'
-]
+    "{\\"failed\\":[],\\"passed\\":[],\\"runners\\":[],\\"specFiles\\":[[\\"auth-missing-token.spec.yml\\",\\"auth-sucess.spec.yml\\"]]}
 ",
   ],
   "status": Object {
