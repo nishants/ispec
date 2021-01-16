@@ -1,7 +1,8 @@
 const express = require('express')
 
 const endpoints = [
-  require('./endpoints/auth-request')
+  require('./endpoints/auth-request'),
+  require('./endpoints/token-request')
 ];
 
 const app = express();
