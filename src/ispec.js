@@ -1,4 +1,3 @@
-const path = require('path');
 const runner = require('./runner');
 
 const specFiles = [];
@@ -42,9 +41,6 @@ module.exports = {
       }
       report.failed.push(item.spec.relative);
     });
-
-    report.runners = runners;
-    report.specFiles = specFiles.map(spec => spec.relative);
   },
   report : () => {
     return report;
