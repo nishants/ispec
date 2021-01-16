@@ -1,6 +1,5 @@
 const specFiles = [];
 const runners = [];
-
 const report = {
   failed: [],
   passed: [],

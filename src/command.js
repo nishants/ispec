@@ -3,27 +3,33 @@ const ispec = require("./ispec");
 const {searchFiles} = require("./utils/file");
 
 const readCommands = async (args) => {
-  if(args.length === 1){
-    const rootPath = path.join(process.cwd(), args.pop());
-    const specsPath = path.join(rootPath, "specs");
-    const runnersPath = path.join(rootPath, "runners");
-    return {
-      rootPath,
-      specsPath,
-      runnersPath,
-      specFiles : await Promise.all([
-        searchFiles("**/*.spec.yml", specsPath),
-        searchFiles("**/*.spec.yaml", specsPath)]).then(files => files.flat())
-    };
-  }
+  console.log(args);
+  const rootPath = path.join(process.cwd(), args[0]);
+  const specsPath = path.join(rootPath, "specs");
+  const runnersPath = path.join(rootPath, "runners");
+  return {
+    rootPath,
+    specsPath,
+    runnersPath,
+    logReport : process.env.report === 'true',
+    specFiles : await Promise.all([
+      searchFiles("**/*.spec.yml", specsPath),
+      searchFiles("**/*.spec.yaml", specsPath)]).then(files => files.flat())
+  };
 }
 
 module.exports = {
   run : async([nodePath, scriptPath, ...args]) => {
     const params = await readCommands(args);
-    await ispec.addSpec(params.specFiles);
+
+    for(const file of params.specFiles){
+      await ispec.addSpec(file);
+    }
+
     await ispec.start();
-    const report = await ispec.report();
-    console.log(JSON.stringify(report));
+    if(params.logReport){
+      const report = await ispec.report();
+      console.log(`###ispec:report${JSON.stringify(report)}`);
+    }
   }
 };

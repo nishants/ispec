@@ -1,6 +1,15 @@
-const runComand  = require('./helpers/runCommand');
+const runParam  = require('./helpers/runCommand');
 
 test("should run a single file in a project", async () => {
-  const actual = await runComand("npm run e2e:test")
-  expect(actual).toMatchSnapshot();
+  const {report} = await runParam("auth-sucess.spec.yml");
+  const expectedReport = {
+    "failed":  [],
+    "passed":  [],
+    "runners": [],
+    "specFiles": [
+      "auth-missing-token.spec.yml",
+      "auth-sucess.spec.yml"
+    ]
+  }
+  expect(report).toEqual(expectedReport);
 });
