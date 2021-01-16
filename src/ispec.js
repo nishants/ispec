@@ -1,11 +1,15 @@
 const specFiles = [];
 const runners = [];
 const report = {
+  server: null,
   failed: [],
   passed: [],
 };
 
 module.exports = {
+  setServer: (server) => {
+    report.server = server;
+  },
   addSpec: (filePath) => {
     specFiles.push(filePath);
     report.passed.push(filePath);

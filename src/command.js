@@ -19,12 +19,18 @@ const getSpecFilesWithFilter = async (args, specsPath, rootPath) => {
   return withRelativePath(allFiles);
 };
 
+const getServer = (args) => {
+  return args.find(arg => arg.startsWith("server="))?.split("=").pop();
+};
+
 const readCommands = async (args) => {
   console.log(args);
   const rootPath = path.join(process.cwd(), args[0]);
   const specsPath = path.join(rootPath, "specs");
   const runnersPath = path.join(rootPath, "runners");
+  const server = getServer(args);
   return {
+    server,
     rootPath,
     specsPath,
     runnersPath,
@@ -36,6 +42,8 @@ const readCommands = async (args) => {
 module.exports = {
   run : async([nodePath, scriptPath, ...args]) => {
     const params = await readCommands(args);
+
+    ispec.setServer(params.server);
 
     for(const file of params.specFiles){
       await ispec.addSpec(file);
