@@ -7,7 +7,7 @@ request: {
   method: POST,
   headers: {
     "host": "ispec.io",
-    "authorization": "Bearer my-valid-token",
+    "authorization": "Bearer a-valid-token",
     "content-type": "application/json",
   },
   body: {
@@ -21,7 +21,7 @@ response: {
   "success": true,
   "requestHeaders": {
     "host": "ispec.io",
-    "authorization": "Bearer my-valid-token",
+    "authorization": "Bearer a-valid-token",
     "content-type": "application/json",
   },
   "requestBody": {
