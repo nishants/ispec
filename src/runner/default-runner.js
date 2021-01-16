@@ -48,8 +48,8 @@ module.exports = {
 
     return {
       success: false,
-      expected: JSON.stringify(result.expected) ,
-      actual: JSON.stringify(result.actual),
+      expected: result.expected ,
+      actual: result.actual,
     };
   }
 }

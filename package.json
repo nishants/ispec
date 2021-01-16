@@ -25,6 +25,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "glob": "^7.1.6",
+    "json-diff": "^0.5.4",
     "yaml": "^1.10.0"
   },
   "devDependencies": {

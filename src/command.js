@@ -1,4 +1,5 @@
 const path = require("path");
+const jsonDiff = require('json-diff')
 const ispec = require("./ispec");
 const {searchFiles} = require("./utils/file");
 
@@ -60,6 +61,9 @@ module.exports = {
     }
 
     console.log(`Passed : ${report.passed.length}/${report.passed.length + report.failed.length}`);
-    report.failed.forEach(console.error);
+    report.failed.forEach((result) => {
+      console.error(`Failed : ${result.spec.name}`);
+      console.error(jsonDiff.diffString(result.status.actual, result.status.expected));
+    });
   }
 };
