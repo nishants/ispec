@@ -32,9 +32,9 @@ module.exports = {
     const results = await Promise.all(specFiles.map(async spec => runner.run(spec, runnerIspec)));
     results.forEach(result => {
       if(result.status.success){
-        return report.passed.push(result.spec);
+        return report.passed.push(result);
       }
-      report.failed.push(result.spec);
+      report.failed.push(result);
     });
   },
   report : () => {

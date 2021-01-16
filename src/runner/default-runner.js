@@ -3,7 +3,7 @@ const client = require('../utils/http-client');
 
 const compare = ({actual, expected}) => {
   const header = expected.headers ? util.isDeepStrictEqual(expected.headers, actual.headers) : true;
-  const body = expected.body ? util.isDeepStrictEqual(expected.body, actual.data) : true;
+  const body = expected.body ? util.isDeepStrictEqual(expected.body, actual.body) : true;
   const status = typeof  expected.status !== 'undefined' ? expected.status === actual.status : true;
 
   return {
@@ -35,21 +35,21 @@ module.exports = {
     };
 
     const addError = (field) => {
-      if(comparison[result]){
+      if(!spec.response[field] || comparison[result]){
         return;
       }
       result.expected[field] = spec.response[field]
       result.actual[field] = response[field]
-    }
+    };
 
-    addError('header');
+    addError('headers');
     addError('status');
     addError('body');
 
     return {
       success: false,
-      expected: spec.response,
-      actual: response,
+      expected: JSON.stringify(result.expected) ,
+      actual: JSON.stringify(result.actual),
     };
   }
 }

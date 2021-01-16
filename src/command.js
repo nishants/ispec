@@ -46,7 +46,6 @@ const readCommands = async (args) => {
 module.exports = {
   run : async([nodePath, scriptPath, ...args]) => {
     const params = await readCommands(args);
-
     ispec.setServer(params.server);
 
     for(const file of params.specFiles){
@@ -54,9 +53,13 @@ module.exports = {
     }
 
     await ispec.start();
+    const report = await ispec.report();
+
     if(params.logReport){
-      const report = await ispec.report();
-      console.log(`###ispec:report${JSON.stringify(report)}`);
+      return console.log(`###ispec:report${JSON.stringify(report)}`);
     }
+
+    console.log(`Passed : ${report.passed.length}/${report.passed.length + report.failed.length}`);
+    report.failed.forEach(console.error);
   }
 };
