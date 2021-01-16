@@ -1,6 +1,6 @@
 const glob = require('glob');
 
-const searchFiles = (pattern, cwd) => {
+const searchFiles = (pattern, cwd, root) => {
   return new Promise((resolve, reject) => {
     const callback = (error, files) => {
       if(error){
@@ -9,7 +9,7 @@ const searchFiles = (pattern, cwd) => {
       resolve(files)
     };
 
-    glob(pattern, {cwd}, callback);
+    glob(pattern, {cwd, root}, callback);
   });
 };
 
