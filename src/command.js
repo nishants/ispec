@@ -4,7 +4,12 @@ const {searchFiles} = require("./utils/file");
 
 const getSpecFilesWithFilter = async (args, specsPath, rootPath) => {
   const filter = args.find(arg => arg.startsWith("specs="))?.split("=").pop();
-  const withRelativePath = (files) => files.map(f => path.relative(rootPath, path.join(specsPath, f)));
+  const withRelativePath = (files) => files.map(relative => {
+    return {
+      relative,
+      path: path.resolve(path.join(specsPath, relative))
+    };
+  });
 
   const allFiles = await Promise.all([
     searchFiles("**/*.spec.yml", specsPath, rootPath),
@@ -24,7 +29,6 @@ const getServer = (args) => {
 };
 
 const readCommands = async (args) => {
-  console.log(args);
   const rootPath = path.join(process.cwd(), args[0]);
   const specsPath = path.join(rootPath, "specs");
   const runnersPath = path.join(rootPath, "runners");

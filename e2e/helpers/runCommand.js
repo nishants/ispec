@@ -1,10 +1,11 @@
 const {exec} = require('child_process');
+const {server}  = require('./defaultParams');
 
 const runCommand = (params) => {
   return new Promise((resolve, reject) => {
     const output = [];
     const errors = [];
-    const child = exec(`report=true npm run e2e:test . ${params}`);
+    const child = exec(`report=true npm run e2e:test . ${params} ${server}`);
 
     const readReport = () => {
       const reportAnchor = "###ispec:report";
@@ -13,10 +14,12 @@ const runCommand = (params) => {
     }
 
     child.stderr.on('data', function(data) {
+      errors.push(data.toString())
       console.error(data.toString())
     });
 
     child.stdout.on('data', function(data) {
+      output.push(data.toString())
       console.log(data.toString())
     });
 
