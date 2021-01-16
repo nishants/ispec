@@ -14,7 +14,8 @@ describe("Select files to run", () => {
     const {report} = await runParam("");
     const expectedFiles = [
       "Must return 403 if request does not have token in header",
-      "Must return data if token is present"
+      "Must return data if token is present",
+      "Variables and hooks"
     ];
     const actual = readResult(report);
     expect(actual.passed.sort()).toEqual(expectedFiles);

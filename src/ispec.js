@@ -15,6 +15,7 @@ const runnerIspec = {
   getUrl : (url) => {
     return new URL(url, server).href;
   },
+  variables: ()=> variables,
   addVariable: (vars) => {
     Object.keys(vars).forEach(key => {
       variables[key] = vars[key];

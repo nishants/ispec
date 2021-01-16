@@ -1,4 +1,4 @@
-const tokens= [{nouser: 'a-valid-token'}];
+const tokens= ['a-valid-token'];
 
 module.exports = {
   getFor: ({user,access}) => {

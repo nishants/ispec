@@ -7,5 +7,5 @@ module.exports = async (ispec) => {
   });
 
   const token = response.data.token;
-  ispec.addVariable({tokens: {guest: token}});
+  ispec.addVariable({guestToken: token});
 };

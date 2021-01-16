@@ -6,7 +6,7 @@ request: {
   url: "/auth",
   method: POST,
   headers: {
-    "authorization": "Bearer {{token.guest}}",
+    "authorization": "Bearer {{guestToken}}",
   },
   body: {}
 }
