@@ -1,37 +1,41 @@
 const runParam  = require('./helpers/runCommand');
+const readResult  = require('./helpers/readResult');
 
 describe("Select files to run", () => {
 
   test("should filter file using specs=pattern", async () => {
     const {report} = await runParam("specs=auth-success");
-    const expected = [{name: "Must return data if token is present"}];
-    expect(report.passed).toEqual(expected);
+    const expected = {passed: ["Must return data if token is present"]};
+    const actual = readResult(report);
+    expect(actual).toEqual(expected);
   });
 
   test("should run all files if not filtered", async () => {
     const {report} = await runParam("");
     const expectedFiles = [
-      "auth-missing-token.spec.yml",
-      "auth-success.spec.yml"
+      "Must return 403 if request does not have token in header",
+      "Must return data if token is present"
     ];
-    expect(report.passed.sort()).toEqual(expectedFiles);
+    const actual = readResult(report);
+    expect(actual.passed.sort()).toEqual(expectedFiles);
   });
 
   test("should support multiple filters", async () => {
     const {report} = await runParam("specs=auth-success.spec.yml,auth-missing-token");
     const expectedFiles = [
-      "auth-missing-token.spec.yml",
-      "auth-success.spec.yml"
+      "Must return 403 if request does not have token in header",
+      "Must return data if token is present"
     ];
-    expect(report.passed.sort()).toEqual(expectedFiles);
+    const actual = readResult(report);
+    expect(actual.passed.sort()).toEqual(expectedFiles);
   });
 
   test("should run multiple files that  match filter", async () => {
     const {report} = await runParam("specs=auth");
     const expectedFiles = [
-      "auth-missing-token.spec.yml",
-      "auth-success.spec.yml"
+      "Must return 403 if request does not have token in header",
+      "Must return data if token is present"
     ];
-    expect(report.passed.sort()).toEqual(expectedFiles);
-  });
+    const actual = readResult(report);
+    expect(actual.passed.sort()).toEqual(expectedFiles);  });
 });

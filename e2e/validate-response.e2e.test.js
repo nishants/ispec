@@ -5,7 +5,10 @@ describe("Should run spec and match response", () => {
     const {report} = await runParam(`specs=auth-missing-token.spec.yml`);
     const actual = report.passed;
     const actualServer = report.server;
-    const expected = ["auth-missing-token.spec.yml"];
+    const expected = [{
+        spec  : {name: "Must return 403 if request does not have token in header"},
+        status: {success: true}
+    }];
     expect(actual).toEqual(expected);
     expect(actualServer).toEqual("http://localhost:3123");
   });
