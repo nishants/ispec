@@ -1,3 +1,7 @@
+spec: {
+  name: "Must return data if token is present"
+}
+
 request: {
   url: "/auth",
   method: POST,

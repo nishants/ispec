@@ -29,17 +29,12 @@ module.exports = {
     runners.push(name);
   },
   start: async () => {
-    const results = await Promise.all(specFiles.map(async spec => {
-      return {
-        spec,
-        result: await runner.run(spec, runnerIspec)
+    const results = await Promise.all(specFiles.map(async spec => runner.run(spec, runnerIspec)));
+    results.forEach(result => {
+      if(result.status.success){
+        return report.passed.push(result.spec);
       }
-    }));
-    results.forEach(item => {
-      if(item.result.success){
-        return report.passed.push(item.spec.relative);
-      }
-      report.failed.push(item.spec.relative);
+      report.failed.push(result.spec);
     });
   },
   report : () => {

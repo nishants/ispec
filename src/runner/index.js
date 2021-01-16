@@ -9,6 +9,9 @@ module.exports = {
   run : async (spec, ispec) => {
     const specData = await readYamlFile(spec.path);
     const runner = specData.runner ? runners.find(r => r.name === specData.runner) : defaultRunner;
-    return runner.run(specData, ispec);
+    return {
+      status: await runner.run(specData, ispec),
+      spec: specData.spec
+    };
   }
 };

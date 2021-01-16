@@ -4,9 +4,7 @@ describe("Select files to run", () => {
 
   test("should filter file using specs=pattern", async () => {
     const {report} = await runParam("specs=auth-success");
-    const expected = [
-      "auth-success.spec.yml"
-    ];
+    const expected = [{name: "Must return data if token is present"}];
     expect(report.passed).toEqual(expected);
   });
 
