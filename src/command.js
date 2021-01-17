@@ -38,17 +38,23 @@ const getServer = (args) => {
 };
 
 const readCommands = async (args) => {
-  const rootPath = path.join(process.cwd(), args[0]);
+  const pathArg = args[0];
+  const isAbsolutePath = path.isAbsolute(pathArg)
+  const rootPath = isAbsolutePath? pathArg : path.join(process.cwd(), pathArg);
+  console.log(`Searching for files in ${rootPath} `);
+
   const specsPath = path.join(rootPath, "specs");
   const runnersPath = path.join(rootPath, "runners");
   const server = getServer(args);
+  const specFiles = await getSpecFilesWithFilter(args, specsPath, rootPath);
+  console.log(`Found ${specFiles.length} spec.yml file in ${rootPath} `);
   return {
     server,
     rootPath,
     specsPath,
     runnersPath,
     logReport : process.env.report === 'true',
-    specFiles : await getSpecFilesWithFilter(args, specsPath, rootPath),
+    specFiles,
     variableProviders: await getVariablesProviders(args, runnersPath, rootPath),
   };
 }
@@ -76,7 +82,8 @@ module.exports = {
     console.log(`Passed : ${report.passed.length}/${report.passed.length + report.failed.length}`);
     report.failed.forEach((result) => {
       console.error(`Failed : ${result.spec.name}`);
-      console.error(jsonDiff.diffString(result.status.expected, result.status.actual));
+      console.error(jsonDiff.diffString("actual", "expected"));
+      console.error(jsonDiff.diffString(result.status.actual, result.status.expected));
     });
   }
 };
