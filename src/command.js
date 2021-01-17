@@ -84,7 +84,6 @@ module.exports = {
         console.error(`Failed : ${result.spec.name}`);
         console.error(jsonDiff.diffString("actual", "expected"));
         console.error(jsonDiff.diffString(result.status.actual, result.status.expected));
-        process.exit()
       });
       console.error(`Failed : ${report.failed.length}/${report.passed.length + report.failed.length}`);
       process.exit(1);
