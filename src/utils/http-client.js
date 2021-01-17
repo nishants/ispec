@@ -17,7 +17,12 @@ module.exports = {
 
       return dataToBody(response);
     }catch(e){
-      return e.response ? dataToBody(e.response) : null;
+      if(e.response){
+        return e.response
+      }
+      const message = `${e.message} : Failed to get response from ${method}"${url}"`;
+      console.error(message);
+      throw e;
     }
   }
 }

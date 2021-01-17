@@ -41,7 +41,6 @@ const readCommands = async (args) => {
   const pathArg = args[0];
   const isAbsolutePath = path.isAbsolute(pathArg)
   const rootPath = isAbsolutePath? pathArg : path.join(process.cwd(), pathArg);
-  console.log(`Searching for files in ${rootPath} `);
 
   const specsPath = path.join(rootPath, "specs");
   const runnersPath = path.join(rootPath, "runners");
