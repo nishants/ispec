@@ -43,7 +43,7 @@ const readCommands = async (args) => {
   const rootPath = isAbsolutePath? pathArg : path.join(process.cwd(), pathArg);
 
   const specsPath = path.join(rootPath, "specs");
-  const runnersPath = path.join(rootPath, "runners");
+  const scriptsPath = path.join(rootPath, "scripts");
   const server = getServer(args);
   const specFiles = await getSpecFilesWithFilter(args, specsPath, rootPath);
   console.log(`Found ${specFiles.length} spec.yml file in ${rootPath} `);
@@ -51,10 +51,10 @@ const readCommands = async (args) => {
     server,
     rootPath,
     specsPath,
-    runnersPath,
+    scriptsPath,
     logReport : process.env.report === 'true',
     specFiles,
-    variableProviders: await getVariablesProviders(args, runnersPath, rootPath),
+    variableProviders: await getVariablesProviders(args, scriptsPath, rootPath),
   };
 }
 
