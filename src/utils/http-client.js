@@ -18,7 +18,7 @@ module.exports = {
       return dataToBody(response);
     }catch(e){
       if(e.response){
-        return e.response
+        return dataToBody(e.response);
       }
       const message = `${e.message} : Failed to get response from ${method}"${url}"`;
       console.error(message);
