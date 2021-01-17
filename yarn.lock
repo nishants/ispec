@@ -2032,10 +2032,6 @@ jest@^26.6.3:
     import-local "^3.0.2"
     jest-cli "^26.6.3"
 
-jeyson@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/jeyson/-/jeyson-1.0.6.tgz#457016a483755961021da32a33b951b0500640d7"
-
 js-tokens@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
@@ -2290,6 +2286,10 @@ ms@2.0.0:
 ms@2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
+
+mustache@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/mustache/-/mustache-4.1.0.tgz#8c1b042238a982d2eb2d30efc6c14296ae3f699d"
 
 nanomatch@^1.2.9:
   version "1.2.13"

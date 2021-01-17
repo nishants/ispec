@@ -1,4 +1,4 @@
-const jeyson = require('jeyson').create();
+const mustache = require('mustache');
 
 const {readYamlFile} = require('../utils/file')
 const runners = [];
@@ -10,7 +10,7 @@ module.exports = {
   },
   run : async (spec, ispec) => {
     const rawSpecData = await readYamlFile(spec.path);
-    const specData = jeyson.compile(ispec.variables(), rawSpecData);
+    const specData = JSON.parse(mustache.render(JSON.stringify(rawSpecData), ispec.variables()));
 
     const runner = specData.runner ? runners.find(r => r.name === specData.runner) : defaultRunner;
     return {
