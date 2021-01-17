@@ -79,10 +79,14 @@ module.exports = {
     }
 
     console.log(`Passed : ${report.passed.length}/${report.passed.length + report.failed.length}`);
-    report.failed.forEach((result) => {
-      console.error(`Failed : ${result.spec.name}`);
-      console.error(jsonDiff.diffString("actual", "expected"));
-      console.error(jsonDiff.diffString(result.status.actual, result.status.expected));
-    });
+    if(report.failed.length){
+      report.failed.forEach((result) => {
+        console.error(`Failed : ${result.spec.name}`);
+        console.error(jsonDiff.diffString("actual", "expected"));
+        console.error(jsonDiff.diffString(result.status.actual, result.status.expected));
+        process.exit()
+      });
+      throw new Error(`Failed : ${report.failed.length}/${report.passed.length + report.failed.length}`);
+    }
   }
 };
