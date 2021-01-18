@@ -6,31 +6,23 @@ Think of it like cucumber for API tests. While cucumber is great when the focus 
 
 
 
-**Problem with API tests**
+### Why we created iSpec?
 
 Usually, API tests are written by developers in the same language as they write code in (Java, Go, C#) using tools like junit, xunit etc. This makes tests non-readble for QAs, frontend developers, or developers who do not code in that language.
 
 Also, the tests are mostly written with the objective of achieving regression rather than defining specs. The noise created by code makes it harder to read data or specs by looking at tests.
 
-> This framework approaches the test from the point of view of specs. Tests are written in request/response format. And it proposes the use of stubs and collectors to specify contracts with external components.
+> iSpec approaches the test from the point of view of specs. Tests are written in request/response format. 
+> We recommend the use of stubs and collectors to specify contracts with external components.
 
 Some properties of tests written with iSpec : 
-
-**Data focused test**
 
 - Clear API contracts
 - Extremely readable tests 
 - Collaboration with devs/testers outside team (who don't code is the same language)
 - Encourages to have the least logic in tests
 
-**Easy to take test data and verify behaviour manually**
-
-- Simply copy-paste the JSON from a spec
-- Tests no dependent on API implementation
-
-**Transparent contracts**
-
-- Use the JSON in specs to clearly specify interactions with external components.
+- Using stubs and collectors, API contracts are specified with high readbility.
 
 
 
@@ -87,7 +79,7 @@ Failed : Should return exchange rate for valid currency pair
 Failed : 1/7
 ```
 
-Click [here](./example/e2e) to view and example project
+Click [here](./example/e2e) to view an example project
 
 
 
@@ -107,6 +99,7 @@ module.exports = async (ispec) => {
   });
 
   const token = response.data.token;
+  // (1) Set token as variable
   ispec.addVariable({guestToken: token});
 };
 ```
@@ -121,7 +114,7 @@ spec: {
 request: {
   url: "v1/exchangerates?CurrencyPair=USDINR",
   headers: {
-    Authorization: "Bearer {{defaultToken}}" ## Use variables in templates
+    Authorization: "Bearer {{guestToken}}" # (2) Use token variable in requests
   }
 }
 
