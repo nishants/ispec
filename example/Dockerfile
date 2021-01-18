@@ -6,6 +6,7 @@ WORKDIR /app
 COPY package.json ./
 COPY yarn.lock ./
 
+RUN npm cache verify
 RUN yarn
 
 COPY src/ /app/src/
