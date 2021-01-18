@@ -1,0 +1,28 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: |
+    yarn
+    cd example
+    yarn 
+    yarn add ../
+  displayName: 'Install for ispec and example project'
+
+- script: |
+    yarn e2e
+  displayName: 'Run e2e tests'
+
+- script: |
+    cd example
+    ls
+    docker-compose -f docker-compose-e2e.yml up --build --abort-on-container-exit
+  displayName: 'Example e2e : docker-compose-e2e.yml'
