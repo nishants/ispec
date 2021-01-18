@@ -16,7 +16,7 @@ steps:
   displayName: 'Install for ispec and example project'
 
 - script: |
-    yarn e2e
+    show_test_console_logs=true yarn e2e
   displayName: 'Run e2e tests'
 
 - script: |
