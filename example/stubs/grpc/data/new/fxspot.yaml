@@ -1,0 +1,30 @@
+request@ : {
+  "field_ids": [
+    "ASK",
+    "BID",
+    "MID"
+  ],
+  "uic": 21,
+  "spread_set_id": 0,
+  "commission_group_id": 0,
+  "client_class_id": 97,
+  "liquidity_factor_option": "IGNORE_LIQUIDITY_FACTOR",
+  "amount": 0,
+  "order_price": 0,
+  "trade_history_amount_option": "INCLUDE_TRADE_HISTORY_AMOUNT",
+  "accumulated_amount": 0,
+  "buy_sell": "SIDE_UNDEFINED",
+  "order_type": "ORDER_TYPE_UNKNOWN",
+  "order_duration": "ORDER_DURATION_UNKNOWN"
+} 
+
+response@ : {
+  "field_values": [
+    1.20756,
+    1.20748,
+    1.20752
+  ],
+  "status": "OK",
+  "data_feed_error": "DATA_FEED_ERROR_OK",
+  "data_feed_error_text": ""
+} 
