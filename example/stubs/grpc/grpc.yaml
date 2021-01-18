@@ -1,0 +1,6 @@
+host: localhost
+port: 7903
+trimmedStreamSize: 10
+remoteHost: "DEVTCE1-DK1.sys.dom"
+remotePort: 7903
+protos: ./protos

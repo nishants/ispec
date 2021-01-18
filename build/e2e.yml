@@ -1,0 +1,14 @@
+steps:
+  - script: |
+      cd ispec
+      yarn
+      cd ../example
+      yarn
+      cd ispec
+      yarn e2e
+    displayName: 'Install and run Run e2e tests'
+
+  - script: |
+      cd example
+      docker-compose -f docker-compose-e2e.yml up --build --abort-on-container-exit
+    displayName: 'Example e2e : docker-compose-e2e.yml'

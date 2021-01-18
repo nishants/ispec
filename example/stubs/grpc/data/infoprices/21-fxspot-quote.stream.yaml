@@ -1,0 +1,50 @@
+request@ : {
+  "subscription_details": {
+    "type": "SUBSCRIBE",
+    "subscription_id": "1",
+    "update_rate_ms": 0
+  },
+  "params": {
+    "field_ids": [
+      "BID",
+      "ASK",
+      "RELIABILITY_INDICATOR",
+      "FLOW_TARGET",
+      "LIQUIDITY_POOL",
+      "UIC"
+    ],
+    "uic": 21,
+    "spread_set_id": 12,
+    "commission_group_id": 1,
+    "client_class_id": 1,
+    "liquidity_factor_option": "USE_LIQUIDITY_FACTOR",
+    "amount": 1,
+    "order_price": 0,
+    "trade_history_amount_option": "INCLUDE_TRADE_HISTORY_AMOUNT",
+    "accumulated_amount": 0,
+    "buy_sell": "BUY",
+    "order_type": "MARKET",
+    "order_duration": "IMMEDIATE_OR_CANCEL"
+  }
+}
+
+response@ : {
+  "stream@": [
+    {
+      "subscription_id": "1",
+      "result": {
+        "field_values": [
+          1.21174,
+          1.21241,
+          -2,
+          8,
+          11,
+          21
+        ],
+        "status": "OK"
+      }
+    }
+  ],
+  "doNotRepeat@": false,
+  "streamInterval@": 1000
+}

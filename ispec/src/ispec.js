@@ -1,9 +1,7 @@
 const runner = require('./runner');
 
 const specFiles = [];
-const runners = [];
 const report = {
-  server: null,
   failed: [],
   passed: [],
 };
@@ -25,8 +23,8 @@ const runnerIspec = {
 
 module.exports = {
   setServer: (url) => {
-    report.server = url;
     server = url;
+    report.server = url;
   },
 
   addSpec: (filePath) => {

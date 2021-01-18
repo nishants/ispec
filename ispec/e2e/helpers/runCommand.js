@@ -6,6 +6,7 @@ const runCommand = (params) => {
     const output = [];
     const errors = [];
     const child = exec(`report=true npm run e2e:test . ${params} ${server}`);
+    const shouldPrintConsoleLogs = process.env.show_test_console_logs === 'true'
 
     const readReport = () => {
       const reportAnchor = "###ispec:report";
@@ -15,12 +16,12 @@ const runCommand = (params) => {
 
     child.stderr.on('data', function(data) {
       errors.push(data.toString())
-      console.error(data.toString())
+      if(shouldPrintConsoleLogs) console.error(data.toString())
     });
 
     child.stdout.on('data', function(data) {
       output.push(data.toString())
-      console.log(data.toString())
+      if(shouldPrintConsoleLogs) console.log(data.toString())
     });
 
     child.on('close', (code, signal) => {

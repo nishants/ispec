@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  e2e:
+    build:
+      context: ../ispec
+    volumes:
+      - ./e2e:/e2e
+    # axios is required by token.variables script to get token for e2e tests
+    command:
+      - /bin/sh
+      - -c
+      - cd /e2e && npm install axios --save && ispec /e2e server=http://api:3123
+#      - dockerize -wait http://api:3123 -timeout 1m  cd /e2e && npm install axios --save && ispec /e2e server=api:3123
+    depends_on:
+      - api
+
+  api:
+    build:
+      context: ../
+    ports:
+      - "3123:3123"
+    environment:
+      redis-server: "redis_server:6379,ssl=False"
+      grpc-server: "grpc_server:7903"
+    depends_on:
+      - redis_server
+      - grpc_server
+
+  redis_server:
+    image: "redis"
+    ports:
+      - "6379:6379"
+    environment:
+      ALLOW_EMPTY_PASSWORD: "yes"
+
+  grpc_server:
+    build:
+      context: ./stubs/grpc
+    ports:
+      - "7903:7903"

@@ -1,0 +1,25 @@
+# available agenst : https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/hosted?view=azure-devops&tabs=yaml
+
+trigger:
+- master
+
+pr:
+- master
+
+jobs:
+  - job: Linux
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+      - template: e2e.yml
+#  - job: Windows
+#    pool:
+#      vmImage: "windows-latest"
+#    steps:
+#      - template: e2e.yml
+#
+#  - job: MacOs
+#    pool:
+#      vmImage: 'macOS-10.14'
+#    steps:
+#      - template: e2e.yml
