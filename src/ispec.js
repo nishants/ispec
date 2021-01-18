@@ -24,6 +24,7 @@ const runnerIspec = {
 module.exports = {
   setServer: (url) => {
     server = url;
+    report.server = url;
   },
 
   addSpec: (filePath) => {

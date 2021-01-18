@@ -8,6 +8,5 @@ describe("Should support variables and templates", () => {
     const actualServer = report.server;
     const expected = {passed: ["Variables and templates"]};
     expect(actual).toEqual(expected);
-    expect(actualServer).toEqual("http://localhost:3123");
   });
 });
