@@ -8,7 +8,7 @@ RUN mkdir -p /app/src
 RUN mkdir -p /ispec
 
 COPY example/package.json ./app
-COPY example/yarn.lock ./app
+#COPY example/yarn.lock ./app
 
 COPY example/src /app/src/
 COPY example/protos /app/protos/

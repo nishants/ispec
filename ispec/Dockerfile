@@ -5,7 +5,7 @@ RUN mkdir -p /ispec/src
 WORKDIR /ispec
 
 COPY package.json ./
-COPY yarn.lock ./
+#COPY yarn.lock ./
 
 RUN yarn
 
