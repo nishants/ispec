@@ -2,6 +2,7 @@ steps:
   - script: |
       cd ispec
       yarn
+      npm install -g
       cd ../example
       yarn
       cd ispec
