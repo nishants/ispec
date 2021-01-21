@@ -1,0 +1,23 @@
+spec: {
+  name: "Must return price for a single uic"
+}
+
+request: {
+  url: "/prices?Uic=211&AssetType=Stock",
+  headers: {
+    "authorization": "Bearer {{guestToken}}",
+  }
+}
+
+response: {
+  status: 200,
+  body: {
+    AssetType: "Stock",
+    Quote: {
+      Bid: 1.11,
+      Ask: 1.11,
+      Mid: 1.11,
+    },
+    Uic: 211
+  }
+}

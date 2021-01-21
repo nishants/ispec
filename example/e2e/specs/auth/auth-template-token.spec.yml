@@ -1,5 +1,5 @@
 spec: {
-  name: "Variables and templates"
+  name: "Use dynamic token"
 }
 
 request: {

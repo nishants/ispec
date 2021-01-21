@@ -2,7 +2,9 @@ const express = require('express')
 
 const endpoints = [
   require('./endpoints/auth-request'),
-  require('./endpoints/token-request')
+  require('./endpoints/token-request'),
+  require('./endpoints/price-subscription'),
+  require('./endpoints/prices/get-single-price')
 ];
 
 const app = express();

@@ -22,7 +22,7 @@ services:
       - "3123:3123"
     environment:
       redis-server: "redis_server:6379,ssl=False"
-      grpc-server: "grpc_server:7903"
+      grpc_endpoint: "grpc_server:7903"
     depends_on:
       - redis_server
       - grpc_server

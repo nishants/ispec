@@ -6,7 +6,7 @@ describe("Should support variables and templates", () => {
     const {report} = await runParam(`specs=template-token.spec.yml`);
     const actual = readResult(report);
     const actualServer = report.server;
-    const expected = {passed: ["Variables and templates"]};
+    const expected = {passed: ["Use dynamic token"]};
     expect(actual).toEqual(expected);
   });
 });

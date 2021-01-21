@@ -11,6 +11,7 @@ COPY example/package.json ./app
 COPY example/yarn.lock ./app
 
 COPY example/src /app/src/
+COPY example/protos /app/protos/
 
 COPY ispec/ /ispec/
 

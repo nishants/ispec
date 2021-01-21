@@ -1,16 +1,7 @@
-const tokens = require("./token-db");
+const auth = require("./auth");
 
 module.exports = (app) => {
-  app.post('/auth', (request, response) => {
-    const bearerToken = request.headers.authorization?.split("Bearer ").pop();
-
-    if(!bearerToken){
-      return response.status(403).send("Expected header {Authorization: Bearer <token>}");
-    }
-
-    if(!tokens.isValid(bearerToken)){
-      return response.status(403).send("Invalid token");
-    }
+  app.post('/auth', auth, (request, response) => {
 
     response.status(200).send({
       requestUrl: request.url,

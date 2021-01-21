@@ -1,0 +1,19 @@
+request@ : {
+  "field_ids": [
+      "MID",
+      "ASK",
+      "BID"
+  ],
+  "uic": 211
+}
+
+response@ : {
+  "field_values": [
+    1.11,
+    1.11,
+    1.11
+  ],
+  "status": "ok",
+  "data_feed_error_text": "",
+  "uic": 211
+}

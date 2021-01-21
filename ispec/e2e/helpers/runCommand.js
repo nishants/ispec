@@ -28,7 +28,7 @@ const runCommand = (params) => {
       const status = {code, signal, error: undefined};
       const result = {status, output, errors, report: readReport()};
       if(code === 1){
-        reject(result);
+        return reject(result);
       }
       resolve(result);
     });

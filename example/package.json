@@ -5,12 +5,18 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/server.js",
+    "start:external:grpc": "node external-services/grpc-server/index.js",
+    "start:all": "npm-run-all -p --race start:external:grpc start",
     "e2e": "ispec ./e2e"
   },
   "author": "nishant",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "@grpc/grpc-js": "^1.2.3",
+    "@grpc/proto-loader": "^0.5.5",
+    "express": "^4.17.1",
+    "nats": "^1.4.12",
+    "npm-run-all": "^4.1.5"
   },
   "devDependencies": {
     "axios": "^0.21.1",

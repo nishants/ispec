@@ -6,4 +6,4 @@ COPY ./ /app/
 
 WORKDIR /app
 
-ENTRYPOINT ["npx", "grpc", "serve", "."]
+CMD ["npx", "grpc", "serve", "."]

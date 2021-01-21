@@ -1,16 +1,2 @@
-iit.pricing_as_a_service.proto.services.fx.FxAutoQuote.GetPrice:
-  - data/infoprices/21-fxspot-quote.yaml
-
-iit.pricing_as_a_service.proto.services.stocks.Stocks.GetPrice:
-  - data/infoprices/211-stock-quote-priceinfo-priceinfordetails.yaml
-  - data/infoprices/invalid-uic-stock-quote.yaml
-
-iit.pricing_as_a_service.proto.services.fx.FxAutoQuote.GetPriceStream:
-  - data/infoprices/21-fxspot-quote.stream.yaml
-
-iit.pricing_as_a_service.proto.services.stocks.Stocks.GetPriceStream:
-  - data/infoprices/211-stock-quote-priceinfo-priceinfordetails.stream.yaml
-
-iit.pricing_as_a_service.proto.services.fx.FxExchangeRate.GetPrice:
-  - data/exchangerate/usd-inr.yaml
-  - data/exchangerate/invalid-currency-pair.yaml
+prices.Stocks.GetPrice:
+  - data/211-stock-quote.yaml

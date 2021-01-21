@@ -1,0 +1,29 @@
+spec: {
+  name: "Must return 403 if request does not have token in header"
+}
+
+request: {
+  url: "/prices/subscribe",
+  method: POST,
+  headers: {
+    "authorization": "Bearer {{guestToken}}",
+  },
+  body: {
+    referenceId: "reference-1",
+    contextId  : "context-1",
+    uics       : [211],
+    assetType  : "Stock"
+  }
+}
+
+response: {
+  status: 200,
+  body: {
+    "snapshot": {
+      referenceId: "reference-1",
+      contextId: "context-1",
+      uics: [ 211 ],
+      assetType: "Stock"
+    }
+  }
+}
