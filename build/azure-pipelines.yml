@@ -7,6 +7,14 @@ pr:
 - master
 
 jobs:
+  - job: Docker
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+      - script: |
+          cd example
+          docker-compose -f docker-compose-e2e.yml up --build --abort-on-container-exit
+        displayName: 'Example e2e : docker-compose-e2e.yml'
   - job: Linux
     pool:
       vmImage: 'ubuntu-16.04'
