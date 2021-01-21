@@ -26,8 +26,8 @@ jobs:
 #    steps:
 #      - template: e2e.yml
 #
-#  - job: MacOs
-#    pool:
-#      vmImage: 'macOS-10.14'
-#    steps:
-#      - template: e2e.yml
+  - job: MacOs
+    pool:
+      vmImage: 'macOS-10.14'
+    steps:
+      - template: e2e.yml
