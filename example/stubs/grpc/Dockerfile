@@ -6,4 +6,4 @@ COPY ./ /app/
 
 WORKDIR /app
 
-CMD ["npx", "grpc", "serve", "."]
+CMD ["grpc", "serve", "."]

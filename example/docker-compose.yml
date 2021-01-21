@@ -9,9 +9,11 @@ services:
     environment:
       redis-server: "redis_server:6379,ssl=False"
       grpc_endpoint: "grpc_server:7903"
+      nats_endpoint: "nats_server:4222"
     depends_on:
       - redis_server
       - grpc_server
+      - nats_server
 
   redis_server:
     image: "redis"
@@ -19,6 +21,11 @@ services:
       - "6379:6379"
     environment:
       ALLOW_EMPTY_PASSWORD: "yes"
+
+  nats_server:
+    image: "nats"
+    ports:
+      - "4222:4222"
 
   grpc_server:
     build:

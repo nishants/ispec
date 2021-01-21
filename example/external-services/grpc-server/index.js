@@ -25,9 +25,10 @@ const GetPrice = async (call, callback) => {
   );
 };
 
-var server = new grpc.Server();
+const server = new grpc.Server();
 server.addService(service, {GetPrice: GetPrice});
 server.bindAsync(process.env.grpc_endpoint || '0.0.0.0:7903', grpc.ServerCredentials.createInsecure(), () => {
   server.start();
 });
 
+console.log("Started external grpc server")

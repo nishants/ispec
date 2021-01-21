@@ -22,6 +22,8 @@ const getSpecFilesWithFilter = async (args, specsPath, rootPath) => {
 
     return withRelativePath(filteredFiles);
   }
+  console.log("searcing in ", specsPath)
+  console.log("found specs : ", allFiles)
   return withRelativePath(allFiles);
 };
 

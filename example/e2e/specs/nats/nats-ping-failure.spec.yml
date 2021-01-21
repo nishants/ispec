@@ -1,0 +1,12 @@
+spec: {
+  name: "Must support runners"
+}
+
+request: {
+  url: "/nats/ping?server=unknown-server",
+}
+
+response: {
+  status: 500,
+  body: "Could not find server"
+}

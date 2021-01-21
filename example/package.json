@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node src/server.js",
     "start:external:grpc": "node external-services/grpc-server/index.js",
-    "start:all": "npm-run-all -p --race start:external:grpc start",
+    "start:stream:one": "node external-services/nats-streaming/index.js one",
+    "start:stream:two": "node external-services/nats-streaming/index.js two",
+    "start:stream:all": "npm-run-all -p --race start:stream:one start:stream:two",
+    "start:all": "npm-run-all -p --race start:external:grpc start start:stream:all",
     "e2e": "ispec ./e2e"
   },
   "author": "nishant",
