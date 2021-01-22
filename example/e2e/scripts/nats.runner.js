@@ -4,6 +4,7 @@ module.exports = async (ispec) => {
   const natsUrl = process.env.nats_endpoint || 'localhost:4222';
   const nats = NATS.connect(natsUrl, {json:true});
   console.log("Runner connected to NATS at : ", natsUrl);
+  const suscriptionIds = [];
 
   const runner = {
     appliesTo: (specAsJson) => {
@@ -12,10 +13,11 @@ module.exports = async (ispec) => {
 
     beforeSpec: async (specAsJson, ispec) => {
       for(const {topic, reply, expectedMessage} of specAsJson.nats.given){
-        console.log("setting up nats subscriptions..")
-        nats.subscribe(topic, (message, replyTo) => {
+
+        const id = nats.subscribe(topic, (message, replyTo) => {
           nats.publish(replyTo, reply);
         });
+        suscriptionIds.push(id);
       }
 
       // ensure nats subscription is ready before proceeding
@@ -25,7 +27,8 @@ module.exports = async (ispec) => {
       });
     },
 
-    afterSpec: (specAsJson, expect) => {
+    afterSpec: async (specAsJson, expect) => {
+      suscriptionIds.forEach(id => nats.unsubscribe(id));
       nats.close();
       return expect([
           {
