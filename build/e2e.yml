@@ -4,6 +4,6 @@ steps:
       yarn
       cd ../example
       yarn
-      cd ispec
+      cd ../ispec
       yarn e2e
     displayName: 'Install and run Run e2e tests'
