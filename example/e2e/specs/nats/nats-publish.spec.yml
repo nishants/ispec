@@ -12,9 +12,11 @@ nats: {
   expect: [
     {
       topic: 'server.streaming-server-one',
-      message: {
-        "value": "data for user"
-      },
+      messages: [
+        {
+          "value": "data for user"
+        }
+      ],
     }
   ]
 }

@@ -5,6 +5,7 @@ module.exports = async (ispec) => {
   const nats = NATS.connect(natsUrl, {json:true});
   console.log("Runner connected to NATS at : ", natsUrl);
   const suscriptionIds = [];
+  const expectedMessages = {};
 
   const runner = {
     appliesTo: (specAsJson) => {
@@ -19,14 +20,10 @@ module.exports = async (ispec) => {
         suscriptionIds.push(id);
       }
 
-      for(const {topic, message, reply} of specAsJson.nats.expect){
+      for(const {topic, messages, reply} of specAsJson.nats.expect){
+        expectedMessages[topic] = {expected: messages, actual : []};
         const id = nats.subscribe(topic, (actualMessage, replyTo) => {
-          expect(          {
-              expected: message,
-              actual: actualMessage,
-              message : `For subject on nats : ${topic}`
-            }
-          )
+          expectedMessages[topic].actual.push(actualMessage);
         });
         suscriptionIds.push(id);
       }
@@ -41,6 +38,13 @@ module.exports = async (ispec) => {
     afterSpec: async (specAsJson, expect) => {
       suscriptionIds.forEach(id => nats.unsubscribe(id));
       nats.close();
+      Object.keys(expectedMessages).forEach((topic) => {
+        expect({
+          message: `Subject on nats : ${topic}`,
+          actual : expectedMessages[topic].actual,
+          expected : expectedMessages[topic].expected,
+        });
+      });
     }
   };
 
