@@ -6,16 +6,36 @@ const defaultRunner = require('./default-runner');
 
 module.exports = {
   add : (name, runner) => {
-    runners.push({name, runner});
+    runners.push(runner);
   },
   run : async (spec, ispec) => {
-    const rawSpecData = await readYamlFile(spec.path);
-    const specData = JSON.parse(mustache.render(JSON.stringify(rawSpecData), ispec.variables()));
+    const specTemplate = await readYamlFile(spec.path);
+    const specAsJson = JSON.parse(mustache.render(JSON.stringify(specTemplate), ispec.variables()));
+    const appliedRunners = runners.filter(r => r.appliesTo(specAsJson));
 
-    const runner = specData.runner ? runners.find(r => r.name === specData.runner) : defaultRunner;
+    const runnerExpect = () => {
+      console.log("Yeah.. expected from runner")
+    };
+    const before = async () => {
+
+      for(const runner of appliedRunners){
+        await runner.beforeSpec(specAsJson);
+      }
+    };
+
+    const after = async () => {
+      for(const runner of appliedRunners){
+        await runner.afterSpec(specAsJson, runnerExpect);
+      }
+    };
+
+    await before();
+    const status = await defaultRunner.run(specAsJson, ispec);
+    await after();
+
     return {
-      status: await runner.run(specData, ispec),
-      spec: specData.spec
+      status: status,
+      spec: specAsJson.spec
     };
   }
 };
