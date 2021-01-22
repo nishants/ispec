@@ -2,6 +2,19 @@ spec: {
   name: "Must publish data to nats"
 }
 
+#nats: {
+#  given : [
+#    {
+#      topic: 'search.find-session.user-one-session',
+#      reply: 'streaming-server-one',
+#    },
+#    {
+#      topic: 'search.find-session.user-one-session',
+#      reply: 'streaming-server-one',
+#    }
+#  ]
+#}
+
 request: {
   url: "/nats/publish",
   method: "POST",

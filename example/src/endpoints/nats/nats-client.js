@@ -1,5 +1,5 @@
 const NATS = require("nats");
-const natsUrl = process.env.nats_endpoint || 'localhost:4221';
+const natsUrl = process.env.nats_endpoint || 'localhost:4222';
 const nats = NATS.connect(natsUrl, {json:true});
 
 const sendMessage = (sessionId, message) => {

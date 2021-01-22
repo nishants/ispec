@@ -3,9 +3,7 @@ const nats = NATS.connect('localhost:4222', {json:true});
 
 const createServer = (serverName) => {
   nats.subscribe(`search.find-session.${serverName}.>`, (message, replyTo) => {
-    if(message.sessionId.startsWith(serverName)){
-      return nats.publish(replyTo, serverName);
-    }
+    return nats.publish(replyTo, serverName);
   });
 
   nats.subscribe(`server.${serverName}`, (message) => {
