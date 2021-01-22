@@ -1,0 +1,38 @@
+spec: {
+  name: "Must publish data to nats"
+}
+
+nats: {
+  given : [
+    {
+      topic: 'search.find-session.user-one-session',
+      reply: 'streaming-server-one',
+    }
+  ],
+  expect: [
+    {
+      topic: 'server.streaming-server-one',
+      message: {
+        "value": "data for user"
+      },
+    }
+  ]
+}
+
+request: {
+  url: "/nats/publish",
+  method: "POST",
+  headers: {
+    "authorization": "Bearer {{guestToken}}",
+  },
+  body: {
+    "sessionId": "user-one-session",
+    "message": {
+      "value": "data for user"
+    }
+  }
+}
+
+response: {
+  status: 200,
+}
