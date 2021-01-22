@@ -35,6 +35,17 @@ const getVariablesProviders = async (args, runnerPath, rootPath) => {
   return variableProviders;
 };
 
+const getRunners = async (args, runnerPath, rootPath) => {
+  const files = await searchFiles("**/*.runner.js", runnerPath, rootPath);
+
+  console.log(`Runners found: `, files);
+
+  const paths = files.map(file => path.resolve(path.join(runnerPath, file)));
+  const runners = await Promise.all(paths.map(p => require(p)));
+
+  return runners;
+};
+
 const getServer = (args) => {
   return args.find(arg => arg.startsWith("server="))?.split("=").pop();
 };
@@ -45,10 +56,15 @@ const readCommands = async (args) => {
   const rootPath = isAbsolutePath? pathArg : path.join(process.cwd(), pathArg);
 
   const specsPath = path.join(rootPath, "specs");
-  const scriptsPath = path.join(rootPath, "scripts");
-  const server = getServer(args);
   const specFiles = await getSpecFilesWithFilter(args, specsPath, rootPath);
   console.log(`Found ${specFiles.length} spec.yml file in ${rootPath} `);
+
+  const server = getServer(args);
+
+  const scriptsPath = path.join(rootPath, "scripts");
+  const variableProviders = await getVariablesProviders(args, scriptsPath, rootPath);
+  const runners = await getRunners(args, scriptsPath, rootPath);
+
   return {
     server,
     rootPath,
@@ -56,7 +72,8 @@ const readCommands = async (args) => {
     scriptsPath,
     logReport : process.env.report === 'true',
     specFiles,
-    variableProviders: await getVariablesProviders(args, scriptsPath, rootPath),
+    variableProviders,
+    runners
   };
 }
 
@@ -71,6 +88,10 @@ module.exports = {
 
     for(const provider of params.variableProviders){
       await ispec.addVariable(provider);
+    }
+
+    for(const provider of params.runners){
+      await ispec.addRunner(provider);
     }
 
     await ispec.start();

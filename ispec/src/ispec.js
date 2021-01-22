@@ -18,6 +18,9 @@ const runnerIspec = {
     Object.keys(vars).forEach(key => {
       variables[key] = vars[key];
     });
+  },
+  addRunner: async (name, newRunner) => {
+    runner.add(name, newRunner);
   }
 };
 
@@ -32,6 +35,9 @@ module.exports = {
   },
   addVariable : async (callback) => {
     await callback(runnerIspec);
+  },
+  addRunner : async (createRunner) => {
+    await createRunner(runnerIspec);;
   },
   start: async () => {
     const results = await Promise.all(specFiles.map(async spec => runner.run(spec, runnerIspec)));
