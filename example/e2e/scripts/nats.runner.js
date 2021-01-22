@@ -20,12 +20,14 @@ module.exports = async (ispec) => {
         suscriptionIds.push(id);
       }
 
-      for(const {topic, messages, reply} of specAsJson.nats.expect){
-        expectedMessages[topic] = {expected: messages, actual : []};
-        const id = nats.subscribe(topic, (actualMessage, replyTo) => {
-          expectedMessages[topic].actual.push(actualMessage);
-        });
-        suscriptionIds.push(id);
+      if(specAsJson.nats.hasOwnProperty('expect')){
+        for(const {topic, messages, reply} of specAsJson.nats.expect){
+          expectedMessages[topic] = {expected: messages, actual : []};
+          const id = nats.subscribe(topic, (actualMessage, replyTo) => {
+            expectedMessages[topic].actual.push(actualMessage);
+          });
+          suscriptionIds.push(id);
+        }
       }
 
       // ensure nats subscription is ready before proceeding
