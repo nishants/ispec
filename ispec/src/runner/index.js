@@ -13,13 +13,13 @@ module.exports = {
     const specAsJson = JSON.parse(mustache.render(JSON.stringify(specTemplate), ispec.variables()));
     const appliedRunners = runners.filter(r => r.appliesTo(specAsJson));
 
-    const runnerExpect = () => {
-      console.log("Yeah.. expected from runner")
+    const runnerExpect = (assertion) => {
+      console.log(assertion)
     };
     const before = async () => {
 
       for(const runner of appliedRunners){
-        await runner.beforeSpec(specAsJson);
+        await runner.beforeSpec(specAsJson, ispec, runnerExpect);
       }
     };
 

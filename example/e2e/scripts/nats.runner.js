@@ -11,11 +11,22 @@ module.exports = async (ispec) => {
       return specAsJson.hasOwnProperty('nats');
     },
 
-    beforeSpec: async (specAsJson, ispec) => {
+    beforeSpec: async (specAsJson, ispec, expect) => {
       for(const {topic, reply, expectedMessage} of specAsJson.nats.given){
-
         const id = nats.subscribe(topic, (message, replyTo) => {
           nats.publish(replyTo, reply);
+        });
+        suscriptionIds.push(id);
+      }
+
+      for(const {topic, message, reply} of specAsJson.nats.expect){
+        const id = nats.subscribe(topic, (actualMessage, replyTo) => {
+          expect(          {
+              expected: message,
+              actual: actualMessage,
+              message : `For subject on nats : ${topic}`
+            }
+          )
         });
         suscriptionIds.push(id);
       }
@@ -30,14 +41,6 @@ module.exports = async (ispec) => {
     afterSpec: async (specAsJson, expect) => {
       suscriptionIds.forEach(id => nats.unsubscribe(id));
       nats.close();
-      return expect([
-          {
-            expected: {value: [1, 2 ,3]},
-            actual: {value: [1, 2 , 3, 4]},
-            messasge : "runner should be able to assert"
-          }
-        ]
-      );
     }
   };
 
