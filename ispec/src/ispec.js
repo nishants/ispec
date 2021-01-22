@@ -9,6 +9,13 @@ const report = {
 const variables = {};
 let server;
 
+process.on('unhandledRejection', up => { throw up })
+
+process.on('uncaughtException', (error) => {
+  console.log(error);
+  process.exit(1);
+});
+
 const runnerIspec = {
   getUrl : (url) => {
     return new URL(url, server).href;

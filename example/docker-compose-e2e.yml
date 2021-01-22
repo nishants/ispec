@@ -10,7 +10,7 @@ services:
     command:
       - /bin/sh
       - -c
-      - cd /e2e && npm install axios --save && npm install nats --save && ispec /e2e server=http://api:3123
+      - cd /e2e && npm install axios --save && npm install axios --save && ispec /e2e server=http://api:3123
 #      - dockerize -wait http://api:3123 -timeout 1m  cd /e2e && npm install axios --save && ispec /e2e server=api:3123
     depends_on:
       - api
