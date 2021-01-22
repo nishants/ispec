@@ -2,8 +2,15 @@ steps:
   - script: |
       cd ispec
       yarn
-      cd ../example
+    displayName: 'Install ispec'
+
+  - script: |
+      cd example
       yarn
-      cd ../ispec
+    displayName: 'Install example service'
+
+  - script: |
+      cd ispec
       yarn e2e
-    displayName: 'Install and run Run e2e tests'
+    displayName: 'E2e for ispec'
+
