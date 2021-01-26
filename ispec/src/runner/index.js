@@ -1,6 +1,5 @@
 const mustache = require('mustache');
-
-const {readYamlFile} = require('../utils/file')
+const {readYamlFile} = require('../utils/file');
 const defaultRunner = require('./default-runner');
 const util = require('util');
 
@@ -38,26 +37,57 @@ module.exports = {
       return result;
     };
 
-    const before = async () => {
+    const runnerBefore = async () => {
 
       for(const runner of appliedRunners){
         await runner.beforeSpec(specAsJson, ispec, runnerExpect);
       }
     };
 
-    const after = async () => {
+    const runnerAfter = async () => {
       for(const runner of appliedRunners){
         await runner.afterSpec(specAsJson, runnerExpect);
       }
     };
 
-    await before();
+    await runnerBefore();
+
+    // run before blocks
+    const beforeBlocks = specAsJson.before || [];
+    for(const beforeBlock of beforeBlocks){
+      const status = await defaultRunner.run(beforeBlock, ispec);
+      if(!status.success){
+        return {
+          path: spec.relative,
+          status: combineRunnerStatus(status),
+          spec: beforeBlock.spec
+        };
+      }
+    }
+
     const status = await defaultRunner.run(specAsJson, ispec);
-    await after();
+
+    // run after blocks
+    if(status.success){
+      const afterBlocks = specAsJson.after || [];
+      for(const afterBlock of afterBlocks){
+        const status = await defaultRunner.run(afterBlock, ispec);
+        if(!status.success){
+          return {
+            path: spec.relative,
+            status: combineRunnerStatus(status),
+            spec: afterBlock.spec
+          };
+        }
+      }
+    }
+
+    await runnerAfter();
 
     return {
       status: combineRunnerStatus(status),
-      spec: specAsJson.spec
+      spec: specAsJson.spec,
+      path: spec.relative
     };
   }
 };

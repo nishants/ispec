@@ -30,7 +30,32 @@ const runnerIspec = {
   }
 };
 
-module.exports = {
+const runSpec = async (spec, runnerIspec, runners) => {
+  // before and after blocks run with same runner instance
+  return runner.run(spec, runnerIspec, runners);
+};
+
+const start = async () => {
+  const results = [];
+  // Create new runner for every test run
+  for(const spec of specFiles){
+    const runners = [];
+    for(const runnerFactory of runnerFactories){
+      const runner = await runnerFactory(runnerIspec);
+      runners.push(runner);
+    }
+    results.push(await runSpec(spec, runnerIspec, runners));
+  }
+
+  results.forEach(result => {
+    if(result.status.success){
+      return report.passed.push(result);
+    }
+    report.failed.push(result);
+  });
+};
+
+const iSpec = {
   setServer: (url) => {
     server = url;
     report.server = url;
@@ -45,27 +70,10 @@ module.exports = {
   addRunner : async (runnerFactory) => {
     runnerFactories.push(runnerFactory);
   },
-  start: async () => {
-
-    const results = [];
-    // Create new runner for every test run
-    for(const spec of specFiles){
-      const runners = [];
-      for(const runnerFactory of runnerFactories){
-        const runner = await runnerFactory(runnerIspec);
-        runners.push(runner);
-      }
-      results.push(await runner.run(spec, runnerIspec, runners));
-    }
-
-    results.forEach(result => {
-      if(result.status.success){
-        return report.passed.push(result);
-      }
-      report.failed.push(result);
-    });
-  },
+  start: start,
   report : () => {
     return report;
   },
-}
+};
+
+module.exports = iSpec

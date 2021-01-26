@@ -104,7 +104,8 @@ module.exports = {
     console.log(`Passed : ${report.passed.length}/${report.passed.length + report.failed.length}`);
     if(report.failed.length){
       report.failed.forEach((result) => {
-        console.error(`Failed : ${result.spec.name}`);
+        console.error(`Failed : ${result.path} : "${result.spec.name}"`);
+        console.error(result.path);
         console.error(jsonDiff.diffString("actual", "expected"));
         console.error(jsonDiff.diffString(result.status.actual, result.status.expected));
       });
