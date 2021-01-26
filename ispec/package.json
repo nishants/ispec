@@ -1,7 +1,11 @@
 {
   "name": "ispec",
-  "version": "0.0.5",
-  "description": "",
+  "version": "0.0.6",
+  "engines": {
+    "node": ">=14.5.0"
+  },
+  "engineStrict": true,
+  "description": "API test automation tool",
   "main": "./src/ispec.js",
   "bin": {
     "ispec": "bin/ispec.js"
