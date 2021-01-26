@@ -7,7 +7,16 @@ const report = {
 };
 
 const variables = {};
+const runnerFactories = [];
+
 let server;
+
+process.on('unhandledRejection', up => { throw up })
+
+process.on('uncaughtException', (error) => {
+  console.log(error);
+  process.exit(1);
+});
 
 const runnerIspec = {
   getUrl : (url) => {
@@ -33,8 +42,22 @@ module.exports = {
   addVariable : async (callback) => {
     await callback(runnerIspec);
   },
+  addRunner : async (runnerFactory) => {
+    runnerFactories.push(runnerFactory);
+  },
   start: async () => {
-    const results = await Promise.all(specFiles.map(async spec => runner.run(spec, runnerIspec)));
+
+    const results = [];
+    // Create new runner for every test run
+    for(const spec of specFiles){
+      const runners = [];
+      for(const runnerFactory of runnerFactories){
+        const runner = await runnerFactory(runnerIspec);
+        runners.push(runner);
+      }
+      results.push(await runner.run(spec, runnerIspec, runners));
+    }
+
     results.forEach(result => {
       if(result.status.success){
         return report.passed.push(result);

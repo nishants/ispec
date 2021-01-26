@@ -35,7 +35,7 @@ const runCommand = (params) => {
 
     child.on('error', (error) => {
       const status = {error};
-      resolve({status, output, errors})
+      reject({status, output, errors})
     });
   });
 }

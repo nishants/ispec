@@ -1,0 +1,25 @@
+spec: {
+  name: "Get data from a nats server"
+}
+
+nats: {
+  given: [{
+    topic: 'server.ping.streaming-server-one',
+    reply: {
+      "serverName": "one",
+      "healthy": true
+    }
+  }]
+}
+
+request: {
+  url: "/nats/ping?server=streaming-server-one",
+}
+
+response: {
+  status: 200,
+  body: {
+    "serverName": "one",
+    "healthy": true
+  }
+}
