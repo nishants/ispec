@@ -4,17 +4,13 @@ spec: {
 
 before: [
   {
-    spec: {
-      name: "Create subscription"
-    },
-
+    spec: {name: "Create a subscription"},
     request: {
       url: "/prices/subscribe",
       method: POST,
       headers: {"authorization": "Bearer {{guestToken}}",},
       body: {referenceId: "reference-103",contextId: "context-103",}
     },
-
     response: {status: 200}
   }
 ]
