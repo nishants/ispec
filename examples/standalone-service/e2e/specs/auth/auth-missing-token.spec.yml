@@ -1,0 +1,16 @@
+spec: {
+  name: "Must return 403 if request does not have token in header"
+}
+
+request: {
+  url: "/auth",
+  method: POST,
+  body: {
+    "message": "hello"
+  }
+}
+
+response: {
+  status: 403,
+  body: "Expected header {Authorization: Bearer <token>}"
+}

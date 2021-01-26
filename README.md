@@ -79,7 +79,7 @@ Failed : Should return exchange rate for valid currency pair
 Failed : 1/7
 ```
 
-Click [here](./example/e2e) to view an example project
+Click [here](./examples/grpc-nats-service/e2e) to view an example project
 
 
 

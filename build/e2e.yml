@@ -5,12 +5,12 @@ steps:
     displayName: 'Install ispec'
 
   - script: |
-      cd example
+      cd examples/grpc-nats-service
       yarn
     displayName: 'Install example service'
 
 #  - script: |
 #      cd ispec
+#      npm install -g express # required for stub in e2e test project on linux machines
 #      yarn e2e
 #    displayName: 'E2e for ispec'
-

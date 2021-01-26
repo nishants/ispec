@@ -1,0 +1,2 @@
+prices.Stocks.GetPrice:
+  - data/211-stock-quote.yaml

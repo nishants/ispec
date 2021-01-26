@@ -1,0 +1,50 @@
+spec: {
+  name: "Should unsubscribe existing subscriptions"
+}
+
+before: [
+  {
+    spec: {name: "Create subscription"},
+    request: {
+      url: "/prices/subscribe",
+      method: POST,
+      headers: {"authorization": "Bearer {{guestToken}}",},
+      body: {referenceId: "reference-102",contextId: "context-102",}
+    },
+    response: {status: 200}
+  },
+  {
+    spec: {name: "Ensure subscription exists"},
+    request: {
+      url: "/prices/subscribe",
+      method: POST,
+      headers: { "authorization": "Bearer {{guestToken}}", },
+      body: { referenceId: "reference-102",contextId: "context-102", }
+    },
+    response: { status: 409 }
+  }
+]
+
+request: {
+  url: "prices/unsubscribe/context-102/reference-102",
+  method: DELETE,
+  headers: {"authorization": "Bearer {{guestToken}}",}
+}
+
+response: {
+  status: 200,
+}
+
+after: [
+  {
+    spec: {name: "Ensure subscriptions can be recreated after unsubscribing"},
+    request: {
+      url: "/prices/subscribe",
+      method: POST,
+      headers: {"authorization": "Bearer {{guestToken}}",},
+      body: {referenceId: "reference-102",contextId: "context-102",}
+    },
+
+    response: {status: 200}
+  }
+]

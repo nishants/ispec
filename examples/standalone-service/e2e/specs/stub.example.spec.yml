@@ -1,0 +1,28 @@
+spec: {
+  name: "Should support stubs"
+}
+
+externalService: {
+  expectedMessages: [ "data for remote service"]
+}
+
+request: {
+  url: "/remote-service",
+  method: POST,
+  headers: {"authorization": "Bearer {{guestToken}}",},
+  body: {
+    dataForRemote: {
+      message: "data for remote service"
+    }
+  }
+}
+
+response: {
+ status: 200,
+ body: {
+   fromStub: {
+     dataReceived: {message: "data for remote service"}
+   }
+ }
+}
+

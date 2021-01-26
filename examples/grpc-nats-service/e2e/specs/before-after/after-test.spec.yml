@@ -1,0 +1,37 @@
+spec: {
+  name: "Should return conflict if subscription exists"
+}
+
+request: {
+  url: "/prices/subscribe",
+  method: POST,
+  headers: {
+    "authorization": "Bearer {{guestToken}}",
+  },
+  body: {
+    referenceId: "reference-101",
+    contextId  : "context-101",
+  }
+}
+
+response: {
+  status: 200,
+}
+
+after: [
+  {
+    spec: {
+      name: "Should return conflict if subscription exists"
+    },
+    request: {
+      url: "/prices/subscribe",
+      method: POST,
+      headers: {"authorization": "Bearer {{guestToken}}",},
+      body: {referenceId: "reference-101",contextId  : "context-101",}
+    },
+    response: {
+      status: 409,
+      body: "Conflict: contextId and referenceId combination exists. Please try difference reference id."
+    }
+  }
+]

@@ -1,0 +1,30 @@
+spec: {
+  name: "Must return data if token is present"
+}
+
+request: {
+  url: "/auth",
+  method: POST,
+  headers: {
+    "host": "ispec.io",
+    "authorization": "Bearer a-valid-token",
+    "content-type": "application/json",
+  },
+  body: {
+    "message": "hello"
+  }
+}
+
+response: {
+  "requestUrl": "/auth",
+  "requestMethod": "POST",
+  "success": true,
+  "requestHeaders": {
+    "host": "ispec.io",
+    "authorization": "Bearer a-valid-token",
+    "content-type": "application/json",
+  },
+  "requestBody": {
+    "message": "hello"
+  }
+}

@@ -1,0 +1,16 @@
+spec: {
+  name: "Use dynamic token"
+}
+
+request: {
+  url: "/auth",
+  method: POST,
+  headers: {
+    "authorization": "Bearer {{guestToken}}",
+  },
+  body: {}
+}
+
+response: {
+  status: 200
+}

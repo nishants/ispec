@@ -9,8 +9,8 @@
   "scripts": {
     "e2e": "npm-run-all -p --race e2e:jest e2e:server",
     "e2e:jest": "jest ./e2e",
-    "e2e:test": "npm --prefix ../example  run e2e",
-    "e2e:server": "npm --prefix ../example run start"
+    "e2e:test": "npm --prefix ../examples/standalone-service  run e2e",
+    "e2e:server": "npm --prefix ../examples/standalone-service run start"
   },
   "repository": {
     "type": "git",

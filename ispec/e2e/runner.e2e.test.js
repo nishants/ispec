@@ -1,11 +1,11 @@
 const runParam  = require('./helpers/runCommand');
 const readResult  = require('./helpers/readResult');
 
-describe("Runners", () => {
+describe("Stub", () => {
 
-  test("should setup runner", async () => {
-    const {report} = await runParam("specs=nats-ping.spec.yml");
-    const expected = {passed: ["Get data from a nats server"]};
+  test("should support stubs", async () => {
+    const {report} = await runParam("specs=stub.example.spec.yml");
+    const expected = {passed: ["Should support stubs"]};
     const actual = readResult(report);
     expect(actual).toEqual(expected);
   });

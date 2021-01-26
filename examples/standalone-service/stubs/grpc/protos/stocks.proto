@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package prices;
+
+service Stocks {
+  rpc GetPrice(StocksParams) returns (PriceResult) { }
+  rpc GetPriceStream(StocksParams) returns (stream PriceResult) { }
+}
+
+message StocksParams {
+  int32 uic = 1;
+  repeated Fields field_ids = 2;
+}
+
+message PriceResult {
+  string status = 1;
+  repeated double field_values = 2;
+  string data_feed_error_text = 3;
+  int32 uic = 4;
+}
+
+enum Fields {
+  FIELD_UNKNOWN = 0;
+  BID = 1;
+  ASK = 2;
+  MID = 3;
+  OPEN = 4;
+}
